@@ -213,6 +213,19 @@ while True:
                             logo_b = 0
                             while logo_b == 0:
                                 time.sleep(1)
+                                # 调整保证金模式（全仓/逐仓）
+                                timestamp = get_timestamp()
+                                response = None
+                                request_path = "/api/mix/v1/account/setMarginMode"
+                                url = API_URL + request_path
+                                params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT","marginMode": "fixed"}
+                                body = json.dumps(params)
+                                sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
+                                header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
+                                response = requests.post(url, data=body, headers=header)
+                                response_1 = json.loads(response.text)
+                                response_1_res = response_1['data']['marginMode']
+                                print("调整保证金模式 : ",response_1_res)
                                 # 调整杠杆倍数
                                 timestamp = get_timestamp()
                                 response = None
@@ -227,19 +240,7 @@ while True:
                                 response_2_res_1 = response_2['data']['longLeverage']
                                 response_2_res_2 = response_2['data']['marginMode']
                                 print("多头杠杆倍数 : ",response_2_res_1,"多头杠杆保证金模式: ",response_2_res_2)
-                                # 调整保证金模式（全仓/逐仓）
-                                timestamp = get_timestamp()
-                                response = None
-                                request_path = "/api/mix/v1/account/setMarginMode"
-                                url = API_URL + request_path
-                                params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT","marginMode": "corssed"}
-                                body = json.dumps(params)
-                                sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
-                                header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
-                                response = requests.post(url, data=body, headers=header)
-                                response_1 = json.loads(response.text)
-                                response_1_res = response_1['data']['marginMode']
-                                print("调整保证金模式 : ",response_1_res)
+
                                 # 下单
                                 timestamp = get_timestamp()
                                 response = None
@@ -342,6 +343,19 @@ while True:
                             logo_b = 0
                             while logo_b == 0:
                                 time.sleep(1)
+                                # 调整保证金模式（全仓/逐仓）
+                                timestamp = get_timestamp()
+                                response = None
+                                request_path = "/api/mix/v1/account/setMarginMode"
+                                url = API_URL + request_path
+                                params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT","marginMode": "fixed"}
+                                body = json.dumps(params)
+                                sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
+                                header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
+                                response = requests.post(url, data=body, headers=header)
+                                response_1 = json.loads(response.text)
+                                response_1_res = response_1['data']['marginMode']
+                                print("调整保证金模式 : ",response_1_res)
                                 # 调整杠杆倍数
                                 timestamp = get_timestamp()
                                 response = None
@@ -355,20 +369,6 @@ while True:
                                 response_2_res_1 = response_2['data']['longLeverage']
                                 response_2_res_2 = response_2['data']['marginMode']
                                 print("空头杠杆倍数 : ",response_2_res_1,"空头杠杆保证金模式: ",response_2_res_2)
-                                # 调整保证金模式（全仓/逐仓）
-                                timestamp = get_timestamp()
-                                response = None
-                                request_path = "/api/mix/v1/account/setMarginMode"
-                                url = API_URL + request_path
-                                params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT","marginMode": "corssed"}
-                                body = json.dumps(params)
-                                sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
-                                header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
-                                response = requests.post(url, data=body, headers=header)
-                                response_1 = json.loads(response.text)
-                                response_1_res = response_1['data']['marginMode']
-                                print("调整保证金模式 : ",response_1_res)
-
                                 # 下单
                                 timestamp = get_timestamp()
                                 response = None
