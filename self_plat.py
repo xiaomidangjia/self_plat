@@ -63,6 +63,8 @@ while True:
     week_day = pd.to_datetime(date).weekday()
     #获取u本位合约账户usdt
     # GET 合约账户
+    timestamp = get_timestamp()
+    response = None
     request_path_mix = "/api/mix/v1/account/account"
     params_mix = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
     request_path_mix = request_path_mix + parse_params_to_str(params_mix)
@@ -77,6 +79,8 @@ while True:
     #判断是不是要把现货u转入usdt
     if mix_value < order_value*1.03:
         #从现货转入
+        timestamp = get_timestamp()
+        response = None
         tranfer_value = int(order_value*1.03 - mix_value) + 10
         request_path = "/api/spot/v1/wallet/transfer-v2"
         url = API_URL + request_path
@@ -90,6 +94,8 @@ while True:
         print("现货向合约划转的ID : ",str(response_spot_res))
     elif mix_value > order_value*1.05:
         #从合约转出
+        timestamp = get_timestamp()
+        response = None
         tranfer_value = int(mix_value - order_value*1.03)
         request_path = "/api/spot/v1/wallet/transfer-v2"
         url = API_URL + request_path
@@ -201,6 +207,8 @@ while True:
                             while logo_b == 0:
                                 Sleep(1000)
                                 # 调整保证金模式（全仓/逐仓）
+                                timestamp = get_timestamp()
+                                response = None
                                 request_path = "/api/mix/v1/account/setMarginMode"
                                 url = API_URL + request_path
                                 params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT","marginMode": "corssed"}
@@ -212,6 +220,8 @@ while True:
                                 response_1_res = response_1['data']['marginMode']
                                 print("调整保证金模式 : ",response_1_res)
                                 # 调整杠杆倍数
+                                timestamp = get_timestamp()
+                                response = None
                                 request_path = "/api/mix/v1/account/setLeverage"
                                 url = API_URL + request_path
                                 params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT","leverage": "25","holdSide":"long"}
@@ -224,6 +234,8 @@ while True:
                                 response_2_res_2 = response_2['data']['marginMode']
                                 print("多头杠杆倍数 : ",response_2_res_1,"多头杠杆保证金模式: ",response_2_res_2)
                                 # 下单
+                                timestamp = get_timestamp()
+                                response = None
                                 clientoid = "bitget%s"%(str(int(datetime.now().timestamp())))
                                 request_path = "/api/mix/v1/order/placeOrder"
                                 url = API_URL + request_path
@@ -241,6 +253,8 @@ while True:
                                     logo_b = 0
                             order_list.append(buy_id)
                             #当前合约持仓
+                            timestamp = get_timestamp()
+                            response = None
                             request_path = "/api/mix/v1/position/singlePosition-v2"
                             url = API_URL + request_path
                             params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
@@ -300,6 +314,8 @@ while True:
                             while logo_b == 0:
                                 Sleep(1000)
                                 # 调整保证金模式（全仓/逐仓）
+                                timestamp = get_timestamp()
+                                response = None
                                 request_path = "/api/mix/v1/account/setMarginMode"
                                 url = API_URL + request_path
                                 params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT","marginMode": "corssed"}
@@ -309,6 +325,8 @@ while True:
                                 response = requests.post(url, data=body, headers=header)
                                 print("调整保证金模式 : ",response.text)
                                 # 调整杠杆倍数
+                                timestamp = get_timestamp()
+                                response = None
                                 request_path = "/api/mix/v1/account/setLeverage"
                                 url = API_URL + request_path
                                 params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT","leverage": "25","holdSide":"short"}
@@ -318,6 +336,8 @@ while True:
                                 response = requests.post(url, data=body, headers=header)
                                 print("调整杠杆倍数 : ",response.text)
                                 # 下单
+                                timestamp = get_timestamp()
+                                response = None
                                 clientoid = "bitget%s"%(str(int(datetime.now().timestamp())))
                                 print(buy_num,clientoid)
                                 request_path = "/api/mix/v1/order/placeOrder"
@@ -335,6 +355,8 @@ while True:
                                 else:
                                     logo_b = 0
                             #当前合约持仓
+                            timestamp = get_timestamp()
+                            response = None
                             request_path = "/api/mix/v1/position/singlePosition-v2"
                             url = API_URL + request_path
                             params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
@@ -391,6 +413,8 @@ while True:
                     while logo_s == 0:
                         Sleep(1000)
                         # 平多
+                        timestamp = get_timestamp()
+                        response = None
                         clientoid = "bitget%s"%(str(int(datetime.now().timestamp())))
                         request_path = "/api/mix/v1/order/placeOrder"
                         url = API_URL + request_path
@@ -406,21 +430,23 @@ while True:
                         else:
                             logo_s = 0
                     #平仓结果
-                        request_path = "/api/mix/v1/position/singlePosition-v2"
-                        url = API_URL + request_path
-                        params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
-                        request_path = request_path + parse_params_to_str(params)
-                        url = API_URL + request_path
-                        body = ""
-                        sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
-                        header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
-                        response = requests.get(url, headers=header)
-                        response_3 = json.loads(response.text)
-                        response_3_res_1 = response_3['data']['margin']
-                        response_3_res_2 = response_3['data']['leverage']
-                        response_3_res_3 = response_3['data']['marginMode']
-                        response_3_res_4 = response_3['data']['holdSide']
-                        print('平多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
+                    timestamp = get_timestamp()
+                    response = None
+                    request_path = "/api/mix/v1/position/singlePosition-v2"
+                    url = API_URL + request_path
+                    params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
+                    request_path = request_path + parse_params_to_str(params)
+                    url = API_URL + request_path
+                    body = ""
+                    sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
+                    header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
+                    response = requests.get(url, headers=header)
+                    response_3 = json.loads(response.text)
+                    response_3_res_1 = response_3['data']['margin']
+                    response_3_res_2 = response_3['data']['leverage']
+                    response_3_res_3 = response_3['data']['marginMode']
+                    response_3_res_4 = response_3['data']['holdSide']
+                    print('平多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                     del order_list[0]
                     finish_date.append(str(datetime.utcnow())[0:10])
                     Log('finish_date',finish_date)
@@ -444,6 +470,8 @@ while True:
                         while logo_s == 0:
                             Sleep(1000)
                             # 平多
+                            timestamp = get_timestamp()
+                            response = None
                             clientoid = "bitget%s"%(str(int(datetime.now().timestamp())))
                             request_path = "/api/mix/v1/order/placeOrder"
                             url = API_URL + request_path
@@ -459,6 +487,8 @@ while True:
                             else:
                                 logo_s = 0
                         #平仓结果
+                        timestamp = get_timestamp()
+                        response = None
                         request_path = "/api/mix/v1/position/singlePosition-v2"
                         url = API_URL + request_path
                         params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
@@ -510,6 +540,8 @@ while True:
                             while logo_s == 0:
                                 Sleep(1000)
                                 # 平多
+                                timestamp = get_timestamp()
+                                response = None
                                 clientoid = "bitget%s"%(str(int(datetime.now().timestamp())))
                                 request_path = "/api/mix/v1/order/placeOrder"
                                 url = API_URL + request_path
@@ -525,6 +557,8 @@ while True:
                                 else:
                                     logo_s = 0
                             #平仓结果
+                            timestamp = get_timestamp()
+                            response = None
                             request_path = "/api/mix/v1/position/singlePosition-v2"
                             url = API_URL + request_path
                             params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
@@ -572,6 +606,8 @@ while True:
                                     while logo_s == 0:
                                         Sleep(1000)
                                         # 平多
+                                        timestamp = get_timestamp()
+                                        response = None
                                         clientoid = "bitget%s"%(str(int(datetime.now().timestamp())))
                                         request_path = "/api/mix/v1/order/placeOrder"
                                         url = API_URL + request_path
@@ -587,6 +623,8 @@ while True:
                                         else:
                                             logo_s = 0
                                     #平仓结果
+                                    timestamp = get_timestamp()
+                                    response = None
                                     request_path = "/api/mix/v1/position/singlePosition-v2"
                                     url = API_URL + request_path
                                     params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
@@ -614,6 +652,8 @@ while True:
                                     while logo_s == 0:
                                         Sleep(1000)
                                         # 平多
+                                        timestamp = get_timestamp()
+                                        response = None
                                         clientoid = "bitget%s"%(str(int(datetime.now().timestamp())))
                                         request_path = "/api/mix/v1/order/placeOrder"
                                         url = API_URL + request_path
@@ -629,6 +669,8 @@ while True:
                                         else:
                                             logo_s = 0
                                     #平仓结果
+                                    timestamp = get_timestamp()
+                                    response = None
                                     request_path = "/api/mix/v1/position/singlePosition-v2"
                                     url = API_URL + request_path
                                     params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
@@ -684,6 +726,8 @@ while True:
                     while logo_s == 0:
                         Sleep(1000)
                         # 平空
+                        timestamp = get_timestamp()
+                        response = None
                         clientoid = "bitget%s"%(str(int(datetime.now().timestamp())))
                         request_path = "/api/mix/v1/order/placeOrder"
                         url = API_URL + request_path
@@ -699,6 +743,8 @@ while True:
                         else:
                             logo_s = 0
                     #平仓结果
+                    timestamp = get_timestamp()
+                    response = None
                     request_path = "/api/mix/v1/position/singlePosition-v2"
                     url = API_URL + request_path
                     params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
@@ -737,6 +783,8 @@ while True:
                         while logo_s == 0:
                             Sleep(1000)
                             # 平空
+                            timestamp = get_timestamp()
+                            response = None
                             clientoid = "bitget%s"%(str(int(datetime.now().timestamp())))
                             request_path = "/api/mix/v1/order/placeOrder"
                             url = API_URL + request_path
@@ -752,6 +800,8 @@ while True:
                             else:
                                 logo_s = 0
                         #平仓结果
+                        timestamp = get_timestamp()
+                        response = None
                         request_path = "/api/mix/v1/position/singlePosition-v2"
                         url = API_URL + request_path
                         params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
@@ -803,6 +853,8 @@ while True:
                             while logo_s == 0:
                                 Sleep(1000)
                                 # 平空
+                                timestamp = get_timestamp()
+                                response = None
                                 clientoid = "bitget%s"%(str(int(datetime.now().timestamp())))
                                 request_path = "/api/mix/v1/order/placeOrder"
                                 url = API_URL + request_path
@@ -818,6 +870,8 @@ while True:
                                 else:
                                     logo_s = 0
                             #平仓结果
+                            timestamp = get_timestamp()
+                            response = None
                             request_path = "/api/mix/v1/position/singlePosition-v2"
                             url = API_URL + request_path
                             params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
@@ -865,6 +919,8 @@ while True:
                                     while logo_s == 0:
                                         Sleep(1000)
                                         # 平空
+                                        timestamp = get_timestamp()
+                                        response = None
                                         clientoid = "bitget%s"%(str(int(datetime.now().timestamp())))
                                         request_path = "/api/mix/v1/order/placeOrder"
                                         url = API_URL + request_path
@@ -880,6 +936,8 @@ while True:
                                         else:
                                             logo_s = 0
                                     #平仓结果
+                                    timestamp = get_timestamp()
+                                    response = None
                                     request_path = "/api/mix/v1/position/singlePosition-v2"
                                     url = API_URL + request_path
                                     params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
@@ -906,6 +964,8 @@ while True:
                                     while logo_s == 0:
                                         Sleep(1000)
                                         # 平空
+                                        timestamp = get_timestamp()
+                                        response = None
                                         clientoid = "bitget%s"%(str(int(datetime.now().timestamp())))
                                         request_path = "/api/mix/v1/order/placeOrder"
                                         url = API_URL + request_path
@@ -921,6 +981,8 @@ while True:
                                         else:
                                             logo_s = 0
                                     #平仓结果
+                                    timestamp = get_timestamp()
+                                    response = None
                                     request_path = "/api/mix/v1/position/singlePosition-v2"
                                     url = API_URL + request_path
                                     params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
@@ -976,6 +1038,8 @@ while True:
                     while logo_s == 0:
                         Sleep(1000)
                         # 平空
+                        timestamp = get_timestamp()
+                        response = None
                         clientoid = "bitget%s"%(str(int(datetime.now().timestamp())))
                         request_path = "/api/mix/v1/order/placeOrder"
                         url = API_URL + request_path
@@ -991,6 +1055,8 @@ while True:
                         else:
                             logo_s = 0
                     #平仓结果
+                    timestamp = get_timestamp()
+                    response = None
                     request_path = "/api/mix/v1/position/singlePosition-v2"
                     url = API_URL + request_path
                     params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
@@ -1029,6 +1095,8 @@ while True:
                         while logo_s == 0:
                             Sleep(1000)
                             # 平空
+                            timestamp = get_timestamp()
+                            response = None
                             clientoid = "bitget%s"%(str(int(datetime.now().timestamp())))
                             request_path = "/api/mix/v1/order/placeOrder"
                             url = API_URL + request_path
@@ -1044,6 +1112,8 @@ while True:
                             else:
                                 logo_s = 0
                         #平仓结果
+                        timestamp = get_timestamp()
+                        response = None
                         request_path = "/api/mix/v1/position/singlePosition-v2"
                         url = API_URL + request_path
                         params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
@@ -1095,6 +1165,8 @@ while True:
                             while logo_s == 0:
                                 Sleep(1000)
                                 # 平空
+                                timestamp = get_timestamp()
+                                response = None
                                 clientoid = "bitget%s"%(str(int(datetime.now().timestamp())))
                                 request_path = "/api/mix/v1/order/placeOrder"
                                 url = API_URL + request_path
@@ -1110,6 +1182,8 @@ while True:
                                 else:
                                     logo_s = 0
                             #平仓结果
+                            timestamp = get_timestamp()
+                            response = None
                             request_path = "/api/mix/v1/position/singlePosition-v2"
                             url = API_URL + request_path
                             params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
@@ -1157,6 +1231,8 @@ while True:
                                     while logo_s == 0:
                                         Sleep(1000)
                                         # 平空
+                                        timestamp = get_timestamp()
+                                        response = None
                                         clientoid = "bitget%s"%(str(int(datetime.now().timestamp())))
                                         request_path = "/api/mix/v1/order/placeOrder"
                                         url = API_URL + request_path
@@ -1172,6 +1248,8 @@ while True:
                                         else:
                                             logo_s = 0
                                     #平仓结果
+                                    timestamp = get_timestamp()
+                                    response = None
                                     request_path = "/api/mix/v1/position/singlePosition-v2"
                                     url = API_URL + request_path
                                     params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
@@ -1198,6 +1276,8 @@ while True:
                                     while logo_s == 0:
                                         Sleep(1000)
                                         # 平空
+                                        timestamp = get_timestamp()
+                                        response = None
                                         clientoid = "bitget%s"%(str(int(datetime.now().timestamp())))
                                         request_path = "/api/mix/v1/order/placeOrder"
                                         url = API_URL + request_path
@@ -1213,6 +1293,8 @@ while True:
                                         else:
                                             logo_s = 0
                                     #平仓结果
+                                    timestamp = get_timestamp()
+                                    response = None
                                     request_path = "/api/mix/v1/position/singlePosition-v2"
                                     url = API_URL + request_path
                                     params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
