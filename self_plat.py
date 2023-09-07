@@ -226,21 +226,6 @@ while True:
                                 response_1 = json.loads(response.text)
                                 response_1_res = response_1['data']['marginMode']
                                 print("调整保证金模式 : ",response_1_res)
-                                # 调整杠杆倍数
-                                timestamp = get_timestamp()
-                                response = None
-                                request_path = "/api/mix/v1/account/setLeverage"
-                                url = API_URL + request_path
-                                params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT","leverage": "25"}
-                                body = json.dumps(params)
-                                sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
-                                header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
-                                response = requests.post(url, data=body, headers=header)
-                                response_2 = json.loads(response.text)
-                                response_2_res_1 = response_2['data']['longLeverage']
-                                response_2_res_2 = response_2['data']['marginMode']
-                                print("多头杠杆倍数 : ",response_2_res_1,"多头杠杆保证金模式: ",response_2_res_2)
-
                                 # 下单
                                 timestamp = get_timestamp()
                                 response = None
@@ -360,7 +345,6 @@ while True:
                                 timestamp = get_timestamp()
                                 response = None
                                 clientoid = "bitget%s"%(str(int(datetime.now().timestamp())))
-                                print(buy_num,clientoid)
                                 request_path = "/api/mix/v1/order/placeOrder"
                                 url = API_URL + request_path
                                 params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT","side":"open_short","size":str(sell_num),"orderType":"market","timeInForceValue":"normal","clientOid":clientoid}
