@@ -172,7 +172,7 @@ while True:
                     header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                     response = requests.get(url, headers=header)
                     ticker = json.loads(response.text)
-                    eth_price = ticker['data']['last']
+                    eth_price = float(ticker['data']['last'])
                     if eth_price > 0:
                         w5 = 1
                     else:
@@ -198,7 +198,7 @@ while True:
                             header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                             response = requests.get(url, headers=header)
                             ticker = json.loads(response.text)
-                            eth_price_d = ticker['data']['last']
+                            eth_price_d = float(ticker['data']['last'])
                             if eth_price_d > 0:
                                 w7 = 1 
                             else:
@@ -300,7 +300,7 @@ while True:
                     header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                     response = requests.get(url, headers=header)
                     ticker = json.loads(response.text)
-                    eth_price = ticker['data']['last']
+                    eth_price = float(ticker['data']['last'])
                     if eth_price > 0:
                         w5 = 1
                     else:
@@ -327,7 +327,7 @@ while True:
                             header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                             response = requests.get(url, headers=header)
                             ticker = json.loads(response.text)
-                            eth_price_d = ticker['data']['last']
+                            eth_price_d = float(ticker['data']['last'])
                             if eth_price_d > 0:
                                 w7 = 1 
                             else:
@@ -439,7 +439,7 @@ while True:
                     header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                     response = requests.get(url, headers=header)
                     now_ticker = json.loads(response.text)
-                    now_eth_price = now_ticker['data']['last']
+                    now_eth_price = float(now_ticker['data']['last'])
                     if now_eth_price > 0:
                         w7 = 1 
                     else:
@@ -512,7 +512,7 @@ while True:
                         header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                         response = requests.get(url, headers=header)
                         next_ticker = json.loads(response.text)
-                        next_eth_price = next_ticker['data']['last']
+                        next_eth_price = float(next_ticker['data']['last'])
                         if next_eth_price > 0:
                             w8 = 1 
                         else:
@@ -588,7 +588,7 @@ while True:
                             header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                             response = requests.get(url, headers=header)
                             next_ticker = json.loads(response.text)
-                            next_eth_price = next_ticker['data']['last']
+                            next_eth_price = float(next_ticker['data']['last'])
                             if next_eth_price > 0:
                                 w9 = 1 
                             else:
@@ -665,7 +665,7 @@ while True:
                                     header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                                     response = requests.get(url, headers=header)
                                     next_ticker_1 = json.loads(response.text)
-                                    next_eth_price_1 = next_ticker_1['data']['last']
+                                    next_eth_price_1 = float(next_ticker_1['data']['last'])
                                     if next_eth_price_1 > 0:
                                         w10 = 1 
                                     else:
@@ -794,7 +794,7 @@ while True:
                     header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                     response = requests.get(url, headers=header)
                     now_ticker = json.loads(response.text)
-                    now_eth_price = now_ticker['data']['last']
+                    now_eth_price = float(now_ticker['data']['last'])
                     if now_eth_price > 0:
                         w7 = 1 
                     else:
@@ -868,7 +868,7 @@ while True:
                         header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                         response = requests.get(url, headers=header)
                         next_ticker = json.loads(response.text)
-                        next_eth_price = next_ticker['data']['last']
+                        next_eth_price = float(next_ticker['data']['last'])
                         if next_eth_price > 0:
                             w8 = 1 
                         else:
@@ -944,7 +944,7 @@ while True:
                             header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                             response = requests.get(url, headers=header)
                             next_ticker = json.loads(response.text)
-                            next_eth_price = next_ticker['data']['last']
+                            next_eth_price = float(next_ticker['data']['last'])
                             if next_eth_price > 0:
                                 w9 = 1 
                             else:
@@ -1021,7 +1021,7 @@ while True:
                                     header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                                     response = requests.get(url, headers=header)
                                     next_ticker_1 = json.loads(response.text)
-                                    next_eth_price_1 = next_ticker_1['data']['last']
+                                    next_eth_price_1 = float(next_ticker_1['data']['last'])
                                     if next_eth_price_1 > 0:
                                         w10 = 1 
                                     else:
@@ -1150,7 +1150,7 @@ while True:
                     header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                     response = requests.get(url, headers=header)
                     now_ticker = json.loads(response.text)
-                    now_eth_price = now_ticker['data']['last']
+                    now_eth_price = float(now_ticker['data']['last'])
                     if now_eth_price > 0:
                         w7 = 1 
                     else:
@@ -1223,7 +1223,7 @@ while True:
                         header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                         response = requests.get(url, headers=header)
                         next_ticker = json.loads(response.text)
-                        next_eth_price = next_ticker['data']['last']
+                        next_eth_price = float(next_ticker['data']['last'])
                         if next_eth_price > 0:
                             w8 = 1 
                         else:
@@ -1299,7 +1299,7 @@ while True:
                             header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                             response = requests.get(url, headers=header)
                             next_ticker = json.loads(response.text)
-                            next_eth_price = next_ticker['data']['last']
+                            next_eth_price = float(next_ticker['data']['last'])
                             if next_eth_price > 0:
                                 w9 = 1 
                             else:
@@ -1376,7 +1376,7 @@ while True:
                                     header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                                     response = requests.get(url, headers=header)
                                     next_ticker_1 = json.loads(response.text)
-                                    next_eth_price_1 = next_ticker_1['data']['last']
+                                    next_eth_price_1 = float(next_ticker_1['data']['last'])
                                     if next_eth_price_1 > 0:
                                         w10 = 1 
                                     else:
