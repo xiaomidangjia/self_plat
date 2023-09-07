@@ -231,7 +231,7 @@ while True:
                                 response = None
                                 request_path = "/api/mix/v1/account/setLeverage"
                                 url = API_URL + request_path
-                                params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT","leverage": "25","holdSide":"long"}
+                                params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT","leverage": "25"}
                                 body = json.dumps(params)
                                 sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                                 header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
@@ -356,19 +356,6 @@ while True:
                                 response_1 = json.loads(response.text)
                                 response_1_res = response_1['data']['marginMode']
                                 print("调整保证金模式 : ",response_1_res)
-                                # 调整杠杆倍数
-                                timestamp = get_timestamp()
-                                response = None
-                                request_path = "/api/mix/v1/account/setLeverage"
-                                url = API_URL + request_path
-                                params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT","leverage": "25","holdSide":"short"}
-                                body = json.dumps(params)
-                                sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
-                                header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
-                                response_2 = requests.post(url, data=body, headers=header)
-                                response_2_res_1 = response_2['data']['longLeverage']
-                                response_2_res_2 = response_2['data']['marginMode']
-                                print("空头杠杆倍数 : ",response_2_res_1,"空头杠杆保证金模式: ",response_2_res_2)
                                 # 下单
                                 timestamp = get_timestamp()
                                 response = None
