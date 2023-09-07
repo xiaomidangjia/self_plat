@@ -98,7 +98,7 @@ while True:
     if date in finish_date:
         if p2 % 3600 ==0:
             print('今天已经完成订单，不需要继续下单')
-        Sleep(1000)
+        time.sleep(1)
         p2 += 1
         continue
     else:
@@ -106,7 +106,7 @@ while True:
         w1 = 0
         flag = 0
         while flag == 0:
-            Sleep(1000)
+            time.sleep(1)
             #调用接口  
             try:
                 test_data_1 = {
@@ -130,15 +130,15 @@ while True:
             elif api_value == 'no_api':
                 while True:
                     print('无效api—key，或者无效的ip地址，请购买正版，或不要与他人共享api-key')
-                    Sleep(1000)
+                    time.sleep(1)
             elif api_value == 'exit_date':
                 while True:
                     print('已经超过api-key使用时间，请购买正版或续费')
-                    Sleep(1000)
+                    time.sleep(1)
             elif api_value == 'exit_value':
                 while True:
                     print('已经超出试用api-key能下单的最大金额，试用api-key最大U本位合约为200U,正式版最大为20000u')
-                    Sleep(1000)
+                    time.sleep(1)
             else:
                 flag = 1
         # 价格达不到，或者时间达不到不开单
@@ -170,7 +170,7 @@ while True:
                 s = 0
                 price_m = [eth_price]
                 while s ==0:
-                    Sleep(1000)
+                    time.sleep(1)
                     second += 1
                     if second % 180 == 0:
                         w7 = 0 
@@ -190,7 +190,7 @@ while True:
                             buy_num = round(order_value*multiple/eth_price_d,2)
                             logo_b = 0
                             while logo_b == 0:
-                                Sleep(1000)
+                                time.sleep(1)
                                 # 调整保证金模式（全仓/逐仓）
                                 timestamp = get_timestamp()
                                 response = None
@@ -276,7 +276,7 @@ while True:
                 s = 0
                 price_m = [eth_price]
                 while s ==0:
-                    Sleep(1000)
+                    time.sleep(1)
                     second += 1
                     #Log('秒数',second)
                     if second % 180 == 0:
@@ -297,7 +297,7 @@ while True:
                             sell_num = round(order_value*multiple/eth_price_d,2)
                             logo_b = 0
                             while logo_b == 0:
-                                Sleep(1000)
+                                time.sleep(1)
                                 # 调整保证金模式（全仓/逐仓）
                                 timestamp = get_timestamp()
                                 response = None
@@ -308,7 +308,9 @@ while True:
                                 sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                                 header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                                 response = requests.post(url, data=body, headers=header)
-                                print("调整保证金模式 : ",response.text)
+                                response_1 = json.loads(response.text)
+                                response_1_res = response_1['data']['marginMode']
+                                print("调整保证金模式 : ",response_1_res)
                                 # 调整杠杆倍数
                                 timestamp = get_timestamp()
                                 response = None
@@ -318,8 +320,10 @@ while True:
                                 body = json.dumps(params)
                                 sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                                 header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
-                                response = requests.post(url, data=body, headers=header)
-                                print("调整杠杆倍数 : ",response.text)
+                                response_2 = requests.post(url, data=body, headers=header)
+                                response_2_res_1 = response_2['data']['longLeverage']
+                                response_2_res_2 = response_2['data']['marginMode']
+                                print("空头杠杆倍数 : ",response_2_res_1,"空头杠杆保证金模式: ",response_2_res_2)
                                 # 下单
                                 timestamp = get_timestamp()
                                 response = None
@@ -327,7 +331,7 @@ while True:
                                 print(buy_num,clientoid)
                                 request_path = "/api/mix/v1/order/placeOrder"
                                 url = API_URL + request_path
-                                params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT","side":"open_short","size":str(buy_num),"orderType":"market","timeInForceValue":"normal","clientOid":clientoid}
+                                params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT","side":"open_short","size":str(sell_num),"orderType":"market","timeInForceValue":"normal","clientOid":clientoid}
                                 body = json.dumps(params)
                                 sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                                 header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
@@ -362,12 +366,12 @@ while True:
                     else:
                         s = 0
             else:
-                Log('发生了未知错误，不能下单')
-                Sleep(1000)
+                print('发生了未知错误，不能下单')
+                time.sleep(1)
                 continue                
-        Sleep(10*1000)
+        time.sleep(1)
         #Log("orders", _C(exchange.GetOrders()))
-        Log("order_list", order_list)
+        print("order_list", order_list)
         if len(order_list) > 0:
             real_eth_price = eth_price_d
         else:
@@ -376,7 +380,7 @@ while True:
         if order_type == 1:
             w3 = 0
             while len(order_list)>0:
-                Sleep(1000)
+                time.sleep(1)
                 #目前的eth价格
                 w7 = 0 
                 while w7 == 0:
@@ -396,7 +400,7 @@ while True:
                     print('卖出平多仓',now_eth_price)
                     logo_s = 0
                     while logo_s == 0:
-                        Sleep(1000)
+                        time.sleep(1)
                         # 平多
                         timestamp = get_timestamp()
                         response = None
@@ -434,12 +438,12 @@ while True:
                     print('平多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                     del order_list[0]
                     finish_date.append(str(datetime.utcnow())[0:10])
-                    Log('finish_date',finish_date)
+                    print('finish_date',finish_date)
                     w2 = 0 
                     p2 = 0                    
                 elif bod <= -0.003:
                     print('卖出平多仓监控中')
-                    Sleep(3*1000)
+                    time.sleep(3)
                     w8 = 0 
                     while w8 == 0:
                         next_ticker = _C(exchange.GetTicker)
@@ -453,7 +457,7 @@ while True:
                         print('卖出平多仓',next_eth_price)
                         logo_s = 0
                         while logo_s == 0:
-                            Sleep(1000)
+                            time.sleep(1)
                             # 平多
                             timestamp = get_timestamp()
                             response = None
@@ -495,16 +499,16 @@ while True:
                         w2 = 0 
                         p2 = 0
                     else:
-                        Log('回归到正常价格监控中')
+                        print('回归到正常价格监控中')
                         w3 += 1
                         continue
                 elif bod > 0.002:
                     out_order_time = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
                     out_order_price = str(now_eth_price)
-                    Sleep(60*1000)
+                    time.sleep(60)
                     w4 = 0
                     while len(order_list) > 0:
-                        Sleep(1000)
+                        time.sleep(1)
                         w9 = 0 
                         while w9 == 0:
                             next_ticker = _C(exchange.GetTicker)
@@ -523,7 +527,7 @@ while True:
                             print('卖出平多仓',next_eth_price)
                             logo_s = 0
                             while logo_s == 0:
-                                Sleep(1000)
+                                time.sleep(1)
                                 # 平多
                                 timestamp = get_timestamp()
                                 response = None
@@ -567,10 +571,10 @@ while True:
                         elif next_bod >= 0.003:
                             out_order_time = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
                             out_order_price = str(next_eth_price)
-                            Sleep(60*1000)
+                            time.sleep(60)
                             w5 = 0
                             while len(order_list) > 0:
-                                Sleep(1000)
+                                time.sleep(1)
                                 w10 = 0 
                                 while w10 == 0:
                                     next_ticker_1 = _C(exchange.GetTicker)
@@ -589,7 +593,7 @@ while True:
                                     print('卖出平多仓',next_eth_price_1)
                                     logo_s = 0
                                     while logo_s == 0:
-                                        Sleep(1000)
+                                        time.sleep(1)
                                         # 平多
                                         timestamp = get_timestamp()
                                         response = None
@@ -631,11 +635,11 @@ while True:
                                     w2 = 0 
                                     p2 = 0
                                 elif next_bod_1 >= 0.009:
-                                    Log('卖出平多仓',next_eth_price_1)
+                                    print('卖出平多仓',next_eth_price_1)
                                     exchange.SetDirection("closebuy")
                                     logo_s = 0
                                     while logo_s == 0:
-                                        Sleep(1000)
+                                        time.sleep(1)
                                         # 平多
                                         timestamp = get_timestamp()
                                         response = None
@@ -688,7 +692,7 @@ while True:
         elif order_type == 2:
             w3 = 0
             while len(order_list)>0:
-                Sleep(1000)
+                time.sleep(1)
                 #目前的eth价格
                 w7 = 0 
                 while w7 == 0:
@@ -709,7 +713,7 @@ while True:
                     print('买入平空仓',now_eth_price)
                     logo_s = 0
                     while logo_s == 0:
-                        Sleep(1000)
+                        time.sleep(1)
                         # 平空
                         timestamp = get_timestamp()
                         response = None
@@ -752,7 +756,7 @@ while True:
                     p2 = 0                    
                 elif bod >= 0.03:
                     print('买出平空仓监控中')
-                    Sleep(3*1000)
+                    time.sleep(3)
                     w8 = 0
                     while w8 == 0:
                         next_ticker = _C(exchange.GetTicker)
@@ -763,10 +767,10 @@ while True:
                             w8 = 0
                     next_bod = (next_eth_price - real_eth_price)/ real_eth_price
                     if next_bod >= 0.03:
-                        Log('买入平空仓',next_eth_price)
+                        print('买入平空仓',next_eth_price)
                         logo_s = 0
                         while logo_s == 0:
-                            Sleep(1000)
+                            time.sleep(1)
                             # 平空
                             timestamp = get_timestamp()
                             response = None
@@ -814,10 +818,10 @@ while True:
                 elif bod < -0.01:
                     out_order_time = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
                     out_order_price = str(now_eth_price)
-                    Sleep(60*1000)
+                    time.sleep(60)
                     w4 = 0
                     while len(order_list) > 0:
-                        Sleep(1000)
+                        time.sleep(1)
                         w9 = 0 
                         while w9 == 0:
                             next_ticker = _C(exchange.GetTicker)
@@ -836,7 +840,7 @@ while True:
                             print('买入平空仓',next_eth_price)
                             logo_s = 0
                             while logo_s == 0:
-                                Sleep(1000)
+                                time.sleep(1)
                                 # 平空
                                 timestamp = get_timestamp()
                                 response = None
@@ -880,10 +884,10 @@ while True:
                         elif next_bod <= -0.03:
                             out_order_time = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
                             out_order_price = str(next_eth_price)
-                            Sleep(60*1000)
+                            time.sleep(60)
                             w5 = 0
                             while len(order_list) > 0:
-                                Sleep(1000)
+                                time.sleep(1)
                                 w10 = 0 
                                 while w10 == 0:
                                     next_ticker_1 = _C(exchange.GetTicker)
@@ -902,7 +906,7 @@ while True:
                                     print('买入平空仓',next_eth_price_1)
                                     logo_s = 0
                                     while logo_s == 0:
-                                        Sleep(1000)
+                                        time.sleep(1)
                                         # 平空
                                         timestamp = get_timestamp()
                                         response = None
@@ -940,14 +944,14 @@ while True:
                                     print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                                     del order_list[0]
                                     finish_date.append(str(datetime.utcnow())[0:10])
-                                    Log('finish_date',finish_date)
+                                    print('finish_date',finish_date)
                                     w2 = 0 
                                     p2 = 0
                                 elif next_bod_1 <= -0.09:
                                     print('买入平空仓',next_eth_price_1)
                                     logo_s = 0
                                     while logo_s == 0:
-                                        Sleep(1000)
+                                        time.sleep(1)
                                         # 平空
                                         timestamp = get_timestamp()
                                         response = None
@@ -1000,7 +1004,7 @@ while True:
         elif order_type == 3:
             w3 = 0
             while len(order_list)>0:
-                Sleep(1000)
+                time.sleep(1)
                 #目前的eth价格
                 w7 = 0 
                 while w7 == 0:
@@ -1014,14 +1018,13 @@ while True:
                 time_now = str(datetime.utcnow())[0:19]
                 time_dd = time_now[0:10]
                 time_hh = time_now[11:16]
-                #Log(time_hh)
                 if w3 % 600 ==0:
                     print('正在监控价格',str(bod) + '====' +str(real_eth_price))
                 if time_hh == '23:59':
                     print('买入平空仓',now_eth_price)
                     logo_s = 0
                     while logo_s == 0:
-                        Sleep(1000)
+                        time.sleep(1)
                         # 平空
                         timestamp = get_timestamp()
                         response = None
@@ -1064,7 +1067,7 @@ while True:
                     p2 = 0                    
                 elif bod >= 0.03:
                     print('买出平空仓监控中')
-                    Sleep(3*1000)
+                    time.sleep(3)
                     w8 = 0
                     while w8 == 0:
                         next_ticker = _C(exchange.GetTicker)
@@ -1075,10 +1078,10 @@ while True:
                             w8 = 0
                     next_bod = (next_eth_price - real_eth_price)/ real_eth_price
                     if next_bod >= 0.03:
-                        Log('买入平空仓',next_eth_price)
+                        print('买入平空仓',next_eth_price)
                         logo_s = 0
                         while logo_s == 0:
-                            Sleep(1000)
+                            time.sleep(1)
                             # 平空
                             timestamp = get_timestamp()
                             response = None
@@ -1126,10 +1129,10 @@ while True:
                 elif bod < -0.02:
                     out_order_time = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
                     out_order_price = str(now_eth_price)
-                    Sleep(60*1000)
+                    time.sleep(60)
                     w4 = 0
                     while len(order_list) > 0:
-                        Sleep(1000)
+                        time.sleep(1)
                         w9 = 0 
                         while w9 == 0:
                             next_ticker = _C(exchange.GetTicker)
@@ -1148,7 +1151,7 @@ while True:
                             print('买入平空仓',next_eth_price)
                             logo_s = 0
                             while logo_s == 0:
-                                Sleep(1000)
+                                time.sleep(1)
                                 # 平空
                                 timestamp = get_timestamp()
                                 response = None
@@ -1192,10 +1195,10 @@ while True:
                         elif next_bod <= -0.03:
                             out_order_time = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
                             out_order_price = str(next_eth_price)
-                            Sleep(60*1000)
+                            time.sleep(60)
                             w5 = 0
                             while len(order_list) > 0:
-                                Sleep(1000)
+                                time.sleep(1)
                                 w10 = 0 
                                 while w10 == 0:
                                     next_ticker_1 = _C(exchange.GetTicker)
@@ -1214,7 +1217,7 @@ while True:
                                     print('买入平空仓',next_eth_price_1)
                                     logo_s = 0
                                     while logo_s == 0:
-                                        Sleep(1000)
+                                        time.sleep(1)
                                         # 平空
                                         timestamp = get_timestamp()
                                         response = None
@@ -1252,14 +1255,14 @@ while True:
                                     print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                                     del order_list[0]
                                     finish_date.append(str(datetime.utcnow())[0:10])
-                                    Log('finish_date',finish_date)
+                                    print('finish_date',finish_date)
                                     w2 = 0 
                                     p2 = 0
                                 elif next_bod_1 <= -0.09:
                                     print('买入平空仓',next_eth_price_1)
                                     logo_s = 0
                                     while logo_s == 0:
-                                        Sleep(1000)
+                                        time.sleep(1)
                                         # 平空
                                         timestamp = get_timestamp()
                                         response = None
@@ -1311,5 +1314,5 @@ while True:
                     continue
         else:
             print('发生了未知错误，不能平单')
-            Sleep(1000)
+            time.sleep(1)
             continue
