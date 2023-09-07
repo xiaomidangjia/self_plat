@@ -20,9 +20,9 @@ crypto_name = 'BTC'
 # 设置api-key，注意试用期只有3个月有效期
 api_key = 'E75LQUK39S62'
 API_URL = 'https://api.bitget.com'
-API_SECRET_KEY = "c4954b71d9439b383cfd3d22f64a15120db1fac4a8b3e6e12a6331aa2561c0fe"
-API_KEY = "bg_8f26fca2bcf246abb7e1a40277936b8e"
-PASSPHRASE = "MMClianghua123"
+API_SECRET_KEY = "c3dcf7ed5f80ec7b30a3af7e4dc847efe95be64d66570e667af82fc43192a250"
+API_KEY = "bg_e6fd3c23efbe7aa2a09dc8862275a812"
+PASSPHRASE = "MMClianghua666"
 # 设置每一单BTC的U本位合约时的购买U数
 order_value = 30
 # 设置永续合约的开单倍数，倍数不超过25倍
@@ -92,21 +92,6 @@ while True:
         response_spot_1 = json.loads(response_spot.text)
         response_spot_res = response_spot_1['data']['transferId']
         print("现货向合约划转的ID : ",str(response_spot_res))
-    elif mix_value > order_value*1.05:
-        #从合约转出
-        timestamp = get_timestamp()
-        response = None
-        tranfer_value = int(mix_value - order_value*1.03)
-        request_path = "/api/spot/v1/wallet/transfer-v2"
-        url = API_URL + request_path
-        params = {"fromType":"mix_usdt","toType":"spot","amount": str(tranfer_value),"coin": "USDT"}
-        body = json.dumps(params)
-        sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
-        header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
-        response_mix = requests.post(url, data=body, headers=header)
-        response_mix_1 = json.loads(response_mix.text)
-        response_mix_res = response_mix_1['data']['transferId']
-        print("合约向现货划转的ID : ",str(response_mix_res))
     else:
         print('不需要划转')
 
