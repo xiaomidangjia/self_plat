@@ -258,11 +258,17 @@ while True:
                             header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                             response = requests.get(url, headers=header)
                             response_3 = json.loads(response.text)
-                            response_3_res_1 = response_3['data']['margin']
-                            response_3_res_2 = response_3['data']['leverage']
-                            response_3_res_3 = response_3['data']['marginMode']
-                            response_3_res_4 = response_3['data']['holdSide']
-                            print('开多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
+                            response_3_res = response_3['data']
+                            for i in range(len(response_3_res)):
+                                margin = response_3_res[i]['margin']
+                                leverage = response_3[i]['leverage']
+                                marginMode = response_3[i]['marginMode']
+                                holdSide = response_3[i]['holdSide']
+                                if holdSide == 'long':
+                                    text = '开多仓结果--------'
+                                else:
+                                    text = '开空仓结果--------'
+                                print(text,"保证金数量 : ",margin,"杠杆倍数: ",leverage,'保证金模式',marginMode,'开仓方向',holdSide)
                             
                             s = 1
                     else:
@@ -359,6 +365,7 @@ while True:
                                     logo_b = 1
                                 else:
                                     logo_b = 0
+                            order_list.append(sell_id)
                             #当前合约持仓
                             timestamp = get_timestamp()
                             response = None
@@ -372,12 +379,17 @@ while True:
                             header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                             response = requests.get(url, headers=header)
                             response_3 = json.loads(response.text)
-                            response_3_res_1 = response_3['data']['margin']
-                            response_3_res_2 = response_3['data']['leverage']
-                            response_3_res_3 = response_3['data']['marginMode']
-                            response_3_res_4 = response_3['data']['holdSide']
-                            print('开空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
-                            order_list.append(sell_id)
+                            response_3_res = response_3['data']
+                            for i in range(len(response_3_res)):
+                                margin = response_3_res[i]['margin']
+                                leverage = response_3[i]['leverage']
+                                marginMode = response_3[i]['marginMode']
+                                holdSide = response_3[i]['holdSide']
+                                if holdSide == 'long':
+                                    text = '开多仓结果--------'
+                                else:
+                                    text = '开空仓结果--------'
+                                print(text,"保证金数量 : ",margin,"杠杆倍数: ",leverage,'保证金模式',marginMode,'开仓方向',holdSide)
                             s = 1
                     else:
                         s = 0
@@ -444,27 +456,9 @@ while True:
                             logo_s = 1
                         else:
                             logo_s = 0
-                    #平仓结果
-                    timestamp = get_timestamp()
-                    response = None
-                    request_path = "/api/mix/v1/position/singlePosition-v2"
-                    url = API_URL + request_path
-                    params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
-                    request_path = request_path + parse_params_to_str(params)
-                    url = API_URL + request_path
-                    body = ""
-                    sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
-                    header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
-                    response = requests.get(url, headers=header)
-                    response_3 = json.loads(response.text)
-                    response_3_res_1 = response_3['data']['margin']
-                    response_3_res_2 = response_3['data']['leverage']
-                    response_3_res_3 = response_3['data']['marginMode']
-                    response_3_res_4 = response_3['data']['holdSide']
-                    print('平多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                     del order_list[0]
                     finish_date.append(str(datetime.utcnow())[0:10])
-                    print('finish_date',finish_date)
+                    print('finish_date',sell_id,finish_date)
                     w2 = 0 
                     p2 = 0                    
                 elif bod <= -0.003:
@@ -512,27 +506,9 @@ while True:
                                 logo_s = 1
                             else:
                                 logo_s = 0
-                        #平仓结果
-                        timestamp = get_timestamp()
-                        response = None
-                        request_path = "/api/mix/v1/position/singlePosition-v2"
-                        url = API_URL + request_path
-                        params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
-                        request_path = request_path + parse_params_to_str(params)
-                        url = API_URL + request_path
-                        body = ""
-                        sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
-                        header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
-                        response = requests.get(url, headers=header)
-                        response_3 = json.loads(response.text)
-                        response_3_res_1 = response_3['data']['margin']
-                        response_3_res_2 = response_3['data']['leverage']
-                        response_3_res_3 = response_3['data']['marginMode']
-                        response_3_res_4 = response_3['data']['holdSide']
-                        print('平多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                         del order_list[0]
                         finish_date.append(str(datetime.utcnow())[0:10])
-                        print('finish_date',finish_date)
+                        print('finish_date',sell_id,finish_date)
                         w2 = 0 
                         p2 = 0
                     else:
@@ -593,27 +569,9 @@ while True:
                                     logo_s = 1
                                 else:
                                     logo_s = 0
-                            #平仓结果
-                            timestamp = get_timestamp()
-                            response = None
-                            request_path = "/api/mix/v1/position/singlePosition-v2"
-                            url = API_URL + request_path
-                            params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
-                            request_path = request_path + parse_params_to_str(params)
-                            url = API_URL + request_path
-                            body = ""
-                            sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
-                            header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
-                            response = requests.get(url, headers=header)
-                            response_3 = json.loads(response.text)
-                            response_3_res_1 = response_3['data']['margin']
-                            response_3_res_2 = response_3['data']['leverage']
-                            response_3_res_3 = response_3['data']['marginMode']
-                            response_3_res_4 = response_3['data']['holdSide']
-                            print('平多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                             del order_list[0]
                             finish_date.append(str(datetime.utcnow())[0:10])
-                            print('finish_date',finish_date)
+                            print('finish_date',sell_id,finish_date)
                             w2 = 0 
                             p2 = 0
                         elif next_bod >= 0.003:
@@ -670,27 +628,9 @@ while True:
                                             logo_s = 1
                                         else:
                                             logo_s = 0
-                                    #平仓结果
-                                    timestamp = get_timestamp()
-                                    response = None
-                                    request_path = "/api/mix/v1/position/singlePosition-v2"
-                                    url = API_URL + request_path
-                                    params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
-                                    request_path = request_path + parse_params_to_str(params)
-                                    url = API_URL + request_path
-                                    body = ""
-                                    sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
-                                    header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
-                                    response = requests.get(url, headers=header)
-                                    response_3 = json.loads(response.text)
-                                    response_3_res_1 = response_3['data']['margin']
-                                    response_3_res_2 = response_3['data']['leverage']
-                                    response_3_res_3 = response_3['data']['marginMode']
-                                    response_3_res_4 = response_3['data']['holdSide']
-                                    print('平多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                                     del order_list[0]
                                     finish_date.append(str(datetime.utcnow())[0:10])
-                                    print('finish_date',finish_date)
+                                    print('finish_date',sell_id,finish_date)
                                     w2 = 0 
                                     p2 = 0
                                 elif next_bod_1 >= 0.009:
@@ -715,27 +655,9 @@ while True:
                                             logo_s = 1
                                         else:
                                             logo_s = 0
-                                    #平仓结果
-                                    timestamp = get_timestamp()
-                                    response = None
-                                    request_path = "/api/mix/v1/position/singlePosition-v2"
-                                    url = API_URL + request_path
-                                    params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
-                                    request_path = request_path + parse_params_to_str(params)
-                                    url = API_URL + request_path
-                                    body = ""
-                                    sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
-                                    header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
-                                    response = requests.get(url, headers=header)
-                                    response_3 = json.loads(response.text)
-                                    response_3_res_1 = response_3['data']['margin']
-                                    response_3_res_2 = response_3['data']['leverage']
-                                    response_3_res_3 = response_3['data']['marginMode']
-                                    response_3_res_4 = response_3['data']['holdSide']
-                                    print('平多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                                     del order_list[0]
                                     finish_date.append(str(datetime.utcnow())[0:10])
-                                    print('finish_date',finish_date)
+                                    print('finish_date',sell_id,finish_date)
                                     w2 = 0 
                                     p2 = 0
                                 else:
@@ -800,27 +722,9 @@ while True:
                             logo_s = 1
                         else:
                             logo_s = 0
-                    #平仓结果
-                    timestamp = get_timestamp()
-                    response = None
-                    request_path = "/api/mix/v1/position/singlePosition-v2"
-                    url = API_URL + request_path
-                    params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
-                    request_path = request_path + parse_params_to_str(params)
-                    url = API_URL + request_path
-                    body = ""
-                    sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
-                    header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
-                    response = requests.get(url, headers=header)
-                    response_3 = json.loads(response.text)
-                    response_3_res_1 = response_3['data']['margin']
-                    response_3_res_2 = response_3['data']['leverage']
-                    response_3_res_3 = response_3['data']['marginMode']
-                    response_3_res_4 = response_3['data']['holdSide']
-                    print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                     del order_list[0]
                     finish_date.append(str(datetime.utcnow())[0:10])
-                    print('finish_date',finish_date)
+                    print('finish_date',buy_id,finish_date)
                     w2 = 0 
                     p2 = 0                    
                 elif bod >= 0.003:
@@ -868,27 +772,9 @@ while True:
                                 logo_s = 1
                             else:
                                 logo_s = 0
-                        #平仓结果
-                        timestamp = get_timestamp()
-                        response = None
-                        request_path = "/api/mix/v1/position/singlePosition-v2"
-                        url = API_URL + request_path
-                        params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
-                        request_path = request_path + parse_params_to_str(params)
-                        url = API_URL + request_path
-                        body = ""
-                        sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
-                        header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
-                        response = requests.get(url, headers=header)
-                        response_3 = json.loads(response.text)
-                        response_3_res_1 = response_3['data']['margin']
-                        response_3_res_2 = response_3['data']['leverage']
-                        response_3_res_3 = response_3['data']['marginMode']
-                        response_3_res_4 = response_3['data']['holdSide']
-                        print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                         del order_list[0]
                         finish_date.append(str(datetime.utcnow())[0:10])
-                        print('finish_date',finish_date)
+                        print('finish_date',buy_id,finish_date)
                         w2 = 0 
                         p2 = 0
                     else:
@@ -949,27 +835,9 @@ while True:
                                     logo_s = 1
                                 else:
                                     logo_s = 0
-                            #平仓结果
-                            timestamp = get_timestamp()
-                            response = None
-                            request_path = "/api/mix/v1/position/singlePosition-v2"
-                            url = API_URL + request_path
-                            params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
-                            request_path = request_path + parse_params_to_str(params)
-                            url = API_URL + request_path
-                            body = ""
-                            sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
-                            header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
-                            response = requests.get(url, headers=header)
-                            response_3 = json.loads(response.text)
-                            response_3_res_1 = response_3['data']['margin']
-                            response_3_res_2 = response_3['data']['leverage']
-                            response_3_res_3 = response_3['data']['marginMode']
-                            response_3_res_4 = response_3['data']['holdSide']
-                            print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                             del order_list[0]
                             finish_date.append(str(datetime.utcnow())[0:10])
-                            print('finish_date',finish_date)
+                            print('finish_date',buy_id,finish_date)
                             w2 = 0 
                             p2 = 0
                         elif next_bod <= -0.003:
@@ -1026,27 +894,9 @@ while True:
                                             logo_s = 1
                                         else:
                                             logo_s = 0
-                                    #平仓结果
-                                    timestamp = get_timestamp()
-                                    response = None
-                                    request_path = "/api/mix/v1/position/singlePosition-v2"
-                                    url = API_URL + request_path
-                                    params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
-                                    request_path = request_path + parse_params_to_str(params)
-                                    url = API_URL + request_path
-                                    body = ""
-                                    sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
-                                    header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
-                                    response = requests.get(url, headers=header)
-                                    response_3 = json.loads(response.text)
-                                    response_3_res_1 = response_3['data']['margin']
-                                    response_3_res_2 = response_3['data']['leverage']
-                                    response_3_res_3 = response_3['data']['marginMode']
-                                    response_3_res_4 = response_3['data']['holdSide']
-                                    print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                                     del order_list[0]
                                     finish_date.append(str(datetime.utcnow())[0:10])
-                                    print('finish_date',finish_date)
+                                    print('finish_date',buy_id,finish_date)
                                     w2 = 0 
                                     p2 = 0
                                 elif next_bod_1 <= -0.009:
@@ -1071,27 +921,9 @@ while True:
                                             logo_s = 1
                                         else:
                                             logo_s = 0
-                                    #平仓结果
-                                    timestamp = get_timestamp()
-                                    response = None
-                                    request_path = "/api/mix/v1/position/singlePosition-v2"
-                                    url = API_URL + request_path
-                                    params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
-                                    request_path = request_path + parse_params_to_str(params)
-                                    url = API_URL + request_path
-                                    body = ""
-                                    sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
-                                    header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
-                                    response = requests.get(url, headers=header)
-                                    response_3 = json.loads(response.text)
-                                    response_3_res_1 = response_3['data']['margin']
-                                    response_3_res_2 = response_3['data']['leverage']
-                                    response_3_res_3 = response_3['data']['marginMode']
-                                    response_3_res_4 = response_3['data']['holdSide']
-                                    print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                                     del order_list[0]
                                     finish_date.append(str(datetime.utcnow())[0:10])
-                                    print('finish_date',finish_date)
+                                    print('finish_date',buy_id,finish_date)
                                     w2 = 0 
                                     p2 = 0
                                 else:
@@ -1155,27 +987,9 @@ while True:
                             logo_s = 1
                         else:
                             logo_s = 0
-                    #平仓结果
-                    timestamp = get_timestamp()
-                    response = None
-                    request_path = "/api/mix/v1/position/singlePosition-v2"
-                    url = API_URL + request_path
-                    params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
-                    request_path = request_path + parse_params_to_str(params)
-                    url = API_URL + request_path
-                    body = ""
-                    sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
-                    header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
-                    response = requests.get(url, headers=header)
-                    response_3 = json.loads(response.text)
-                    response_3_res_1 = response_3['data']['margin']
-                    response_3_res_2 = response_3['data']['leverage']
-                    response_3_res_3 = response_3['data']['marginMode']
-                    response_3_res_4 = response_3['data']['holdSide']
-                    print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                     del order_list[0]
                     finish_date.append(str(datetime.utcnow())[0:10])
-                    print('finish_date',finish_date)
+                    print('finish_date',buy_id,finish_date)
                     w2 = 0 
                     p2 = 0                    
                 elif bod >= 0.03:
@@ -1223,27 +1037,9 @@ while True:
                                 logo_s = 1
                             else:
                                 logo_s = 0
-                        #平仓结果
-                        timestamp = get_timestamp()
-                        response = None
-                        request_path = "/api/mix/v1/position/singlePosition-v2"
-                        url = API_URL + request_path
-                        params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
-                        request_path = request_path + parse_params_to_str(params)
-                        url = API_URL + request_path
-                        body = ""
-                        sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
-                        header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
-                        response = requests.get(url, headers=header)
-                        response_3 = json.loads(response.text)
-                        response_3_res_1 = response_3['data']['margin']
-                        response_3_res_2 = response_3['data']['leverage']
-                        response_3_res_3 = response_3['data']['marginMode']
-                        response_3_res_4 = response_3['data']['holdSide']
-                        print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                         del order_list[0]
                         finish_date.append(str(datetime.utcnow())[0:10])
-                        print('finish_date',finish_date)
+                        print('finish_date',buy_id,finish_date)
                         w2 = 0 
                         p2 = 0
                     else:
@@ -1304,27 +1100,9 @@ while True:
                                     logo_s = 1
                                 else:
                                     logo_s = 0
-                            #平仓结果
-                            timestamp = get_timestamp()
-                            response = None
-                            request_path = "/api/mix/v1/position/singlePosition-v2"
-                            url = API_URL + request_path
-                            params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
-                            request_path = request_path + parse_params_to_str(params)
-                            url = API_URL + request_path
-                            body = ""
-                            sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
-                            header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
-                            response = requests.get(url, headers=header)
-                            response_3 = json.loads(response.text)
-                            response_3_res_1 = response_3['data']['margin']
-                            response_3_res_2 = response_3['data']['leverage']
-                            response_3_res_3 = response_3['data']['marginMode']
-                            response_3_res_4 = response_3['data']['holdSide']
-                            print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                             del order_list[0]
                             finish_date.append(str(datetime.utcnow())[0:10])
-                            print('finish_date',finish_date)
+                            print('finish_date',buy_id,finish_date)
                             w2 = 0 
                             p2 = 0
                         elif next_bod <= -0.03:
@@ -1381,27 +1159,9 @@ while True:
                                             logo_s = 1
                                         else:
                                             logo_s = 0
-                                    #平仓结果
-                                    timestamp = get_timestamp()
-                                    response = None
-                                    request_path = "/api/mix/v1/position/singlePosition-v2"
-                                    url = API_URL + request_path
-                                    params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
-                                    request_path = request_path + parse_params_to_str(params)
-                                    url = API_URL + request_path
-                                    body = ""
-                                    sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
-                                    header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
-                                    response = requests.get(url, headers=header)
-                                    response_3 = json.loads(response.text)
-                                    response_3_res_1 = response_3['data']['margin']
-                                    response_3_res_2 = response_3['data']['leverage']
-                                    response_3_res_3 = response_3['data']['marginMode']
-                                    response_3_res_4 = response_3['data']['holdSide']
-                                    print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                                     del order_list[0]
                                     finish_date.append(str(datetime.utcnow())[0:10])
-                                    print('finish_date',finish_date)
+                                    print('finish_date',buy_id,finish_date)
                                     w2 = 0 
                                     p2 = 0
                                 elif next_bod_1 <= -0.09:
@@ -1426,27 +1186,9 @@ while True:
                                             logo_s = 1
                                         else:
                                             logo_s = 0
-                                    #平仓结果
-                                    timestamp = get_timestamp()
-                                    response = None
-                                    request_path = "/api/mix/v1/position/singlePosition-v2"
-                                    url = API_URL + request_path
-                                    params = {"symbol":"BTCUSDT_UMCBL","marginCoin":"USDT"}
-                                    request_path = request_path + parse_params_to_str(params)
-                                    url = API_URL + request_path
-                                    body = ""
-                                    sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
-                                    header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
-                                    response = requests.get(url, headers=header)
-                                    response_3 = json.loads(response.text)
-                                    response_3_res_1 = response_3['data']['margin']
-                                    response_3_res_2 = response_3['data']['leverage']
-                                    response_3_res_3 = response_3['data']['marginMode']
-                                    response_3_res_4 = response_3['data']['holdSide']
-                                    print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                                     del order_list[0]
                                     finish_date.append(str(datetime.utcnow())[0:10])
-                                    print('finish_date',finish_date)
+                                    print('finish_date',buy_id,finish_date)
                                     w2 = 0 
                                     p2 = 0
                                 else:
