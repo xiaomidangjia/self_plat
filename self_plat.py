@@ -120,7 +120,7 @@ while True:
                 api_res = json.loads(api_res)
                 api_value = api_res['value']
                 api_pingjia = api_res['pingjia']
-                api_risk = api_res['risk']
+                api_risk = float(api_res['risk'])
             except:
                 continue
             if api_value == 'error':
