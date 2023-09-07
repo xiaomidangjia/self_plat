@@ -255,7 +255,7 @@ while True:
                             response_3_res_2 = response_3['data']['leverage']
                             response_3_res_3 = response_3['data']['marginMode']
                             response_3_res_4 = response_3['data']['holdSide']
-                            print('开多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式'，response_3_res_3,'开仓方向':response_3_res_4)
+                            print('开多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                             
                             s = 1
                     else:
@@ -349,7 +349,7 @@ while True:
                             response_3_res_2 = response_3['data']['leverage']
                             response_3_res_3 = response_3['data']['marginMode']
                             response_3_res_4 = response_3['data']['holdSide']
-                            print('开空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式'，response_3_res_3,'开仓方向':response_3_res_4)
+                            print('开空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                             order_list.append(sell_id)
                             s = 1
                     else:
@@ -420,7 +420,7 @@ while True:
                         response_3_res_2 = response_3['data']['leverage']
                         response_3_res_3 = response_3['data']['marginMode']
                         response_3_res_4 = response_3['data']['holdSide']
-                        print('平多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式'，response_3_res_3,'开仓方向':response_3_res_4)
+                        print('平多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                     del order_list[0]
                     finish_date.append(str(datetime.utcnow())[0:10])
                     Log('finish_date',finish_date)
@@ -473,7 +473,7 @@ while True:
                         response_3_res_2 = response_3['data']['leverage']
                         response_3_res_3 = response_3['data']['marginMode']
                         response_3_res_4 = response_3['data']['holdSide']
-                        print('平多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式'，response_3_res_3,'开仓方向':response_3_res_4)
+                        print('平多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                         del order_list[0]
                         finish_date.append(str(datetime.utcnow())[0:10])
                         print('finish_date',finish_date)
@@ -539,7 +539,7 @@ while True:
                             response_3_res_2 = response_3['data']['leverage']
                             response_3_res_3 = response_3['data']['marginMode']
                             response_3_res_4 = response_3['data']['holdSide']
-                            print('平多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式'，response_3_res_3,'开仓方向':response_3_res_4)
+                            print('平多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                             del order_list[0]
                             finish_date.append(str(datetime.utcnow())[0:10])
                             print('finish_date',finish_date)
@@ -601,7 +601,7 @@ while True:
                                     response_3_res_2 = response_3['data']['leverage']
                                     response_3_res_3 = response_3['data']['marginMode']
                                     response_3_res_4 = response_3['data']['holdSide']
-                                    print('平多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式'，response_3_res_3,'开仓方向':response_3_res_4)
+                                    print('平多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                                     del order_list[0]
                                     finish_date.append(str(datetime.utcnow())[0:10])
                                     print('finish_date',finish_date)
@@ -643,7 +643,7 @@ while True:
                                     response_3_res_2 = response_3['data']['leverage']
                                     response_3_res_3 = response_3['data']['marginMode']
                                     response_3_res_4 = response_3['data']['holdSide']
-                                    print('平多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式'，response_3_res_3,'开仓方向':response_3_res_4)
+                                    print('平多仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                                     del order_list[0]
                                     finish_date.append(str(datetime.utcnow())[0:10])
                                     print('finish_date',finish_date)
@@ -713,7 +713,7 @@ while True:
                     response_3_res_2 = response_3['data']['leverage']
                     response_3_res_3 = response_3['data']['marginMode']
                     response_3_res_4 = response_3['data']['holdSide']
-                    print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式'，response_3_res_3,'开仓方向':response_3_res_4)
+                    print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                     del order_list[0]
                     finish_date.append(str(datetime.utcnow())[0:10])
                     print('finish_date',finish_date)
@@ -766,7 +766,7 @@ while True:
                         response_3_res_2 = response_3['data']['leverage']
                         response_3_res_3 = response_3['data']['marginMode']
                         response_3_res_4 = response_3['data']['holdSide']
-                        print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式'，response_3_res_3,'开仓方向':response_3_res_4)
+                        print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                         del order_list[0]
                         finish_date.append(str(datetime.utcnow())[0:10])
                         print('finish_date',finish_date)
@@ -832,7 +832,7 @@ while True:
                             response_3_res_2 = response_3['data']['leverage']
                             response_3_res_3 = response_3['data']['marginMode']
                             response_3_res_4 = response_3['data']['holdSide']
-                            print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式'，response_3_res_3,'开仓方向':response_3_res_4)
+                            print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                             del order_list[0]
                             finish_date.append(str(datetime.utcnow())[0:10])
                             print('finish_date',finish_date)
@@ -894,7 +894,7 @@ while True:
                                     response_3_res_2 = response_3['data']['leverage']
                                     response_3_res_3 = response_3['data']['marginMode']
                                     response_3_res_4 = response_3['data']['holdSide']
-                                    print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式'，response_3_res_3,'开仓方向':response_3_res_4)
+                                    print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                                     del order_list[0]
                                     finish_date.append(str(datetime.utcnow())[0:10])
                                     Log('finish_date',finish_date)
@@ -935,7 +935,7 @@ while True:
                                     response_3_res_2 = response_3['data']['leverage']
                                     response_3_res_3 = response_3['data']['marginMode']
                                     response_3_res_4 = response_3['data']['holdSide']
-                                    print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式'，response_3_res_3,'开仓方向':response_3_res_4)
+                                    print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                                     del order_list[0]
                                     finish_date.append(str(datetime.utcnow())[0:10])
                                     print('finish_date',finish_date)
@@ -1005,7 +1005,7 @@ while True:
                     response_3_res_2 = response_3['data']['leverage']
                     response_3_res_3 = response_3['data']['marginMode']
                     response_3_res_4 = response_3['data']['holdSide']
-                    print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式'，response_3_res_3,'开仓方向':response_3_res_4)
+                    print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                     del order_list[0]
                     finish_date.append(str(datetime.utcnow())[0:10])
                     print('finish_date',finish_date)
@@ -1058,7 +1058,7 @@ while True:
                         response_3_res_2 = response_3['data']['leverage']
                         response_3_res_3 = response_3['data']['marginMode']
                         response_3_res_4 = response_3['data']['holdSide']
-                        print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式'，response_3_res_3,'开仓方向':response_3_res_4)
+                        print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                         del order_list[0]
                         finish_date.append(str(datetime.utcnow())[0:10])
                         print('finish_date',finish_date)
@@ -1124,7 +1124,7 @@ while True:
                             response_3_res_2 = response_3['data']['leverage']
                             response_3_res_3 = response_3['data']['marginMode']
                             response_3_res_4 = response_3['data']['holdSide']
-                            print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式'，response_3_res_3,'开仓方向':response_3_res_4)
+                            print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                             del order_list[0]
                             finish_date.append(str(datetime.utcnow())[0:10])
                             print('finish_date',finish_date)
@@ -1186,7 +1186,7 @@ while True:
                                     response_3_res_2 = response_3['data']['leverage']
                                     response_3_res_3 = response_3['data']['marginMode']
                                     response_3_res_4 = response_3['data']['holdSide']
-                                    print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式'，response_3_res_3,'开仓方向':response_3_res_4)
+                                    print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                                     del order_list[0]
                                     finish_date.append(str(datetime.utcnow())[0:10])
                                     Log('finish_date',finish_date)
@@ -1227,7 +1227,7 @@ while True:
                                     response_3_res_2 = response_3['data']['leverage']
                                     response_3_res_3 = response_3['data']['marginMode']
                                     response_3_res_4 = response_3['data']['holdSide']
-                                    print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式'，response_3_res_3,'开仓方向':response_3_res_4)
+                                    print('平空仓结果--------',"保证金数量 : ",response_3_res_1,"杠杆倍数: ",response_3_res_2,'保证金模式',response_3_res_3,'开仓方向',response_3_res_4)
                                     del order_list[0]
                                     finish_date.append(str(datetime.utcnow())[0:10])
                                     print('finish_date',finish_date)
