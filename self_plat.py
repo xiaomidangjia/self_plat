@@ -160,8 +160,19 @@ while True:
                 order_list = []
                 w5 = 0 
                 while w5 == 0:
-                    ticker = _C(exchange.GetTicker)
-                    eth_price = ticker['Last']
+                    timestamp = get_timestamp()
+                    response = None
+                    request_path = "/api/mix/v1/market/ticker"
+                    url = API_URL + request_path
+                    params = {"symbol":"BTCUSDT_UMCBL"}
+                    request_path = request_path + parse_params_to_str(params)
+                    url = API_URL + request_path
+                    body = ""
+                    sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
+                    header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
+                    response = requests.get(url, headers=header)
+                    ticker = json.loads(response.text)
+                    eth_price = ticker['data']['last']
                     if eth_price > 0:
                         w5 = 1
                     else:
@@ -175,8 +186,19 @@ while True:
                     if second % 180 == 0:
                         w7 = 0 
                         while w7 == 0:
-                            ticker_d = _C(exchange.GetTicker)
-                            eth_price_d = ticker_d['Last'] 
+                            timestamp = get_timestamp()
+                            response = None
+                            request_path = "/api/mix/v1/market/ticker"
+                            url = API_URL + request_path
+                            params = {"symbol":"BTCUSDT_UMCBL"}
+                            request_path = request_path + parse_params_to_str(params)
+                            url = API_URL + request_path
+                            body = ""
+                            sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
+                            header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
+                            response = requests.get(url, headers=header)
+                            ticker = json.loads(response.text)
+                            eth_price_d = ticker['data']['last']
                             if eth_price_d > 0:
                                 w7 = 1 
                             else:
@@ -266,8 +288,19 @@ while True:
                 order_list = []
                 w5 = 0 
                 while w5 == 0:
-                    ticker = _C(exchange.GetTicker)
-                    eth_price = ticker['Last']
+                    timestamp = get_timestamp()
+                    response = None
+                    request_path = "/api/mix/v1/market/ticker"
+                    url = API_URL + request_path
+                    params = {"symbol":"BTCUSDT_UMCBL"}
+                    request_path = request_path + parse_params_to_str(params)
+                    url = API_URL + request_path
+                    body = ""
+                    sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
+                    header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
+                    response = requests.get(url, headers=header)
+                    ticker = json.loads(response.text)
+                    eth_price = ticker['data']['last']
                     if eth_price > 0:
                         w5 = 1
                     else:
@@ -282,8 +315,19 @@ while True:
                     if second % 180 == 0:
                         w7 = 0 
                         while w7 == 0:
-                            ticker_d = _C(exchange.GetTicker)
-                            eth_price_d = ticker_d['Last'] 
+                            timestamp = get_timestamp()
+                            response = None
+                            request_path = "/api/mix/v1/market/ticker"
+                            url = API_URL + request_path
+                            params = {"symbol":"BTCUSDT_UMCBL"}
+                            request_path = request_path + parse_params_to_str(params)
+                            url = API_URL + request_path
+                            body = ""
+                            sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
+                            header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
+                            response = requests.get(url, headers=header)
+                            ticker = json.loads(response.text)
+                            eth_price_d = ticker['data']['last']
                             if eth_price_d > 0:
                                 w7 = 1 
                             else:
@@ -370,7 +414,6 @@ while True:
                 time.sleep(1)
                 continue                
         time.sleep(1)
-        #Log("orders", _C(exchange.GetOrders()))
         print("order_list", order_list)
         if len(order_list) > 0:
             real_eth_price = eth_price_d
@@ -384,8 +427,19 @@ while True:
                 #目前的eth价格
                 w7 = 0 
                 while w7 == 0:
-                    now_ticker = _C(exchange.GetTicker)
-                    now_eth_price = now_ticker['Last'] 
+                    timestamp = get_timestamp()
+                    response = None
+                    request_path = "/api/mix/v1/market/ticker"
+                    url = API_URL + request_path
+                    params = {"symbol":"BTCUSDT_UMCBL"}
+                    request_path = request_path + parse_params_to_str(params)
+                    url = API_URL + request_path
+                    body = ""
+                    sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
+                    header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
+                    response = requests.get(url, headers=header)
+                    now_ticker = json.loads(response.text)
+                    now_eth_price = now_ticker['data']['last']
                     if now_eth_price > 0:
                         w7 = 1 
                     else:
@@ -446,8 +500,19 @@ while True:
                     time.sleep(3)
                     w8 = 0 
                     while w8 == 0:
-                        next_ticker = _C(exchange.GetTicker)
-                        next_eth_price = next_ticker['Last'] 
+                        timestamp = get_timestamp()
+                        response = None
+                        request_path = "/api/mix/v1/market/ticker"
+                        url = API_URL + request_path
+                        params = {"symbol":"BTCUSDT_UMCBL"}
+                        request_path = request_path + parse_params_to_str(params)
+                        url = API_URL + request_path
+                        body = ""
+                        sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
+                        header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
+                        response = requests.get(url, headers=header)
+                        next_ticker = json.loads(response.text)
+                        next_eth_price = next_ticker['data']['last']
                         if next_eth_price > 0:
                             w8 = 1 
                         else:
@@ -511,8 +576,19 @@ while True:
                         time.sleep(1)
                         w9 = 0 
                         while w9 == 0:
-                            next_ticker = _C(exchange.GetTicker)
-                            next_eth_price = next_ticker['Last'] 
+                            timestamp = get_timestamp()
+                            response = None
+                            request_path = "/api/mix/v1/market/ticker"
+                            url = API_URL + request_path
+                            params = {"symbol":"BTCUSDT_UMCBL"}
+                            request_path = request_path + parse_params_to_str(params)
+                            url = API_URL + request_path
+                            body = ""
+                            sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
+                            header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
+                            response = requests.get(url, headers=header)
+                            next_ticker = json.loads(response.text)
+                            next_eth_price = next_ticker['data']['last']
                             if next_eth_price > 0:
                                 w9 = 1 
                             else:
@@ -577,8 +653,19 @@ while True:
                                 time.sleep(1)
                                 w10 = 0 
                                 while w10 == 0:
-                                    next_ticker_1 = _C(exchange.GetTicker)
-                                    next_eth_price_1 = next_ticker_1['Last'] 
+                                    timestamp = get_timestamp()
+                                    response = None
+                                    request_path = "/api/mix/v1/market/ticker"
+                                    url = API_URL + request_path
+                                    params = {"symbol":"BTCUSDT_UMCBL"}
+                                    request_path = request_path + parse_params_to_str(params)
+                                    url = API_URL + request_path
+                                    body = ""
+                                    sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
+                                    header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
+                                    response = requests.get(url, headers=header)
+                                    next_ticker_1 = json.loads(response.text)
+                                    next_eth_price_1 = next_ticker_1['data']['last']
                                     if next_eth_price_1 > 0:
                                         w10 = 1 
                                     else:
@@ -636,7 +723,6 @@ while True:
                                     p2 = 0
                                 elif next_bod_1 >= 0.009:
                                     print('卖出平多仓',next_eth_price_1)
-                                    exchange.SetDirection("closebuy")
                                     logo_s = 0
                                     while logo_s == 0:
                                         time.sleep(1)
@@ -696,8 +782,19 @@ while True:
                 #目前的eth价格
                 w7 = 0 
                 while w7 == 0:
-                    now_ticker = _C(exchange.GetTicker)
-                    now_eth_price = now_ticker['Last'] 
+                    timestamp = get_timestamp()
+                    response = None
+                    request_path = "/api/mix/v1/market/ticker"
+                    url = API_URL + request_path
+                    params = {"symbol":"BTCUSDT_UMCBL"}
+                    request_path = request_path + parse_params_to_str(params)
+                    url = API_URL + request_path
+                    body = ""
+                    sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
+                    header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
+                    response = requests.get(url, headers=header)
+                    now_ticker = json.loads(response.text)
+                    now_eth_price = now_ticker['data']['last']
                     if now_eth_price > 0:
                         w7 = 1 
                     else:
@@ -759,8 +856,19 @@ while True:
                     time.sleep(3)
                     w8 = 0
                     while w8 == 0:
-                        next_ticker = _C(exchange.GetTicker)
-                        next_eth_price = next_ticker['Last'] 
+                        timestamp = get_timestamp()
+                        response = None
+                        request_path = "/api/mix/v1/market/ticker"
+                        url = API_URL + request_path
+                        params = {"symbol":"BTCUSDT_UMCBL"}
+                        request_path = request_path + parse_params_to_str(params)
+                        url = API_URL + request_path
+                        body = ""
+                        sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
+                        header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
+                        response = requests.get(url, headers=header)
+                        next_ticker = json.loads(response.text)
+                        next_eth_price = next_ticker['data']['last']
                         if next_eth_price > 0:
                             w8 = 1 
                         else:
@@ -824,8 +932,19 @@ while True:
                         time.sleep(1)
                         w9 = 0 
                         while w9 == 0:
-                            next_ticker = _C(exchange.GetTicker)
-                            next_eth_price = next_ticker['Last'] 
+                            timestamp = get_timestamp()
+                            response = None
+                            request_path = "/api/mix/v1/market/ticker"
+                            url = API_URL + request_path
+                            params = {"symbol":"BTCUSDT_UMCBL"}
+                            request_path = request_path + parse_params_to_str(params)
+                            url = API_URL + request_path
+                            body = ""
+                            sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
+                            header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
+                            response = requests.get(url, headers=header)
+                            next_ticker = json.loads(response.text)
+                            next_eth_price = next_ticker['data']['last']
                             if next_eth_price > 0:
                                 w9 = 1 
                             else:
@@ -890,8 +1009,19 @@ while True:
                                 time.sleep(1)
                                 w10 = 0 
                                 while w10 == 0:
-                                    next_ticker_1 = _C(exchange.GetTicker)
-                                    next_eth_price_1 = next_ticker_1['Last'] 
+                                    timestamp = get_timestamp()
+                                    response = None
+                                    request_path = "/api/mix/v1/market/ticker"
+                                    url = API_URL + request_path
+                                    params = {"symbol":"BTCUSDT_UMCBL"}
+                                    request_path = request_path + parse_params_to_str(params)
+                                    url = API_URL + request_path
+                                    body = ""
+                                    sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
+                                    header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
+                                    response = requests.get(url, headers=header)
+                                    next_ticker_1 = json.loads(response.text)
+                                    next_eth_price_1 = next_ticker_1['data']['last']
                                     if next_eth_price_1 > 0:
                                         w10 = 1 
                                     else:
@@ -1008,8 +1138,19 @@ while True:
                 #目前的eth价格
                 w7 = 0 
                 while w7 == 0:
-                    now_ticker = _C(exchange.GetTicker)
-                    now_eth_price = now_ticker['Last'] 
+                    timestamp = get_timestamp()
+                    response = None
+                    request_path = "/api/mix/v1/market/ticker"
+                    url = API_URL + request_path
+                    params = {"symbol":"BTCUSDT_UMCBL"}
+                    request_path = request_path + parse_params_to_str(params)
+                    url = API_URL + request_path
+                    body = ""
+                    sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
+                    header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
+                    response = requests.get(url, headers=header)
+                    now_ticker = json.loads(response.text)
+                    now_eth_price = now_ticker['data']['last']
                     if now_eth_price > 0:
                         w7 = 1 
                     else:
@@ -1070,8 +1211,19 @@ while True:
                     time.sleep(3)
                     w8 = 0
                     while w8 == 0:
-                        next_ticker = _C(exchange.GetTicker)
-                        next_eth_price = next_ticker['Last'] 
+                        timestamp = get_timestamp()
+                        response = None
+                        request_path = "/api/mix/v1/market/ticker"
+                        url = API_URL + request_path
+                        params = {"symbol":"BTCUSDT_UMCBL"}
+                        request_path = request_path + parse_params_to_str(params)
+                        url = API_URL + request_path
+                        body = ""
+                        sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
+                        header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
+                        response = requests.get(url, headers=header)
+                        next_ticker = json.loads(response.text)
+                        next_eth_price = next_ticker['data']['last']
                         if next_eth_price > 0:
                             w8 = 1 
                         else:
@@ -1135,8 +1287,19 @@ while True:
                         time.sleep(1)
                         w9 = 0 
                         while w9 == 0:
-                            next_ticker = _C(exchange.GetTicker)
-                            next_eth_price = next_ticker['Last'] 
+                            timestamp = get_timestamp()
+                            response = None
+                            request_path = "/api/mix/v1/market/ticker"
+                            url = API_URL + request_path
+                            params = {"symbol":"BTCUSDT_UMCBL"}
+                            request_path = request_path + parse_params_to_str(params)
+                            url = API_URL + request_path
+                            body = ""
+                            sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
+                            header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
+                            response = requests.get(url, headers=header)
+                            next_ticker = json.loads(response.text)
+                            next_eth_price = next_ticker['data']['last']
                             if next_eth_price > 0:
                                 w9 = 1 
                             else:
@@ -1201,8 +1364,19 @@ while True:
                                 time.sleep(1)
                                 w10 = 0 
                                 while w10 == 0:
-                                    next_ticker_1 = _C(exchange.GetTicker)
-                                    next_eth_price_1 = next_ticker_1['Last'] 
+                                    timestamp = get_timestamp()
+                                    response = None
+                                    request_path = "/api/mix/v1/market/ticker"
+                                    url = API_URL + request_path
+                                    params = {"symbol":"BTCUSDT_UMCBL"}
+                                    request_path = request_path + parse_params_to_str(params)
+                                    url = API_URL + request_path
+                                    body = ""
+                                    sign_cang = sign(pre_hash(timestamp, "GET", request_path, str(body)), API_SECRET_KEY)
+                                    header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
+                                    response = requests.get(url, headers=header)
+                                    next_ticker_1 = json.loads(response.text)
+                                    next_eth_price_1 = next_ticker_1['data']['last']
                                     if next_eth_price_1 > 0:
                                         w10 = 1 
                                     else:
