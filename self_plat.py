@@ -18,7 +18,7 @@ crypto_usdt = 'BTC_USDT'
 base_num = 0.01
 crypto_name = 'BTC'
 # 设置api-key，注意试用期只有3个月有效期
-api_key = 'zXTMjzeujgSIrHUl'
+api_key = 'E75LQUK39S62'
 API_URL = 'https://api.bitget.com'
 API_SECRET_KEY = "c4954b71d9439b383cfd3d22f64a15120db1fac4a8b3e6e12a6331aa2561c0fe"
 API_KEY = "bg_8f26fca2bcf246abb7e1a40277936b8e"
