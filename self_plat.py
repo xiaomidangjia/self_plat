@@ -379,6 +379,7 @@ while True:
                             header = get_header(API_KEY, sign_cang, timestamp, PASSPHRASE)
                             response = requests.get(url, headers=header)
                             response_3 = json.loads(response.text)
+                            print(response_3)
                             response_3_res = response_3['data']
                             for i in range(len(response_3_res)):
                                 margin = response_3_res[i]['margin']
