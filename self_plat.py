@@ -261,9 +261,9 @@ while True:
                             response_3_res = response_3['data']
                             for i in range(len(response_3_res)):
                                 margin = response_3_res[i]['margin']
-                                leverage = response_3[i]['leverage']
-                                marginMode = response_3[i]['marginMode']
-                                holdSide = response_3[i]['holdSide']
+                                leverage = response_3_res[i]['leverage']
+                                marginMode = response_3_res[i]['marginMode']
+                                holdSide = response_3_res[i]['holdSide']
                                 if holdSide == 'long':
                                     text = '开多仓结果--------'
                                 else:
@@ -383,9 +383,9 @@ while True:
                             response_3_res = response_3['data']
                             for i in range(len(response_3_res)):
                                 margin = response_3_res[i]['margin']
-                                leverage = response_3[i]['leverage']
-                                marginMode = response_3[i]['marginMode']
-                                holdSide = response_3[i]['holdSide']
+                                leverage = response_3_res[i]['leverage']
+                                marginMode = response_3_res[i]['marginMode']
+                                holdSide = response_3_res[i]['holdSide']
                                 if holdSide == 'long':
                                     text = '开多仓结果--------'
                                 else:
