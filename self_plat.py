@@ -451,7 +451,7 @@ while True:
                         sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                         header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                         response = requests.post(url, data=body, headers=header)
-                        sell_res = json.dumps(response.text)
+                        sell_res = json.loads(response.text)
                         sell_id = int(sell_res['data']['orderId'])
                         if int(sell_id)  > 10:
                             logo_s = 1
@@ -501,7 +501,7 @@ while True:
                             sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                             header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                             response = requests.post(url, data=body, headers=header)
-                            sell_res = json.dumps(response.text)
+                            sell_res = json.loads(response.text)
                             sell_id = int(sell_res['data']['orderId'])
                             if int(sell_id)  > 10:
                                 logo_s = 1
@@ -564,7 +564,7 @@ while True:
                                 sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                                 header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                                 response = requests.post(url, data=body, headers=header)
-                                sell_res = json.dumps(response.text)
+                                sell_res = json.loads(response.text)
                                 sell_id = int(sell_res['data']['orderId'])
                                 if int(sell_id)  > 10:
                                     logo_s = 1
@@ -623,7 +623,7 @@ while True:
                                         sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                                         header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                                         response = requests.post(url, data=body, headers=header)
-                                        sell_res = json.dumps(response.text)
+                                        sell_res = json.loads(response.text)
                                         sell_id = int(sell_res['data']['orderId'])
                                         if int(sell_id)  > 10:
                                             logo_s = 1
@@ -650,7 +650,7 @@ while True:
                                         sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                                         header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                                         response = requests.post(url, data=body, headers=header)
-                                        sell_res = json.dumps(response.text)
+                                        sell_res = json.loads(response.text)
                                         sell_id = int(sell_res['data']['orderId'])
                                         if int(sell_id)  > 10:
                                             logo_s = 1
@@ -717,8 +717,7 @@ while True:
                         sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                         header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                         response = requests.post(url, data=body, headers=header)
-                        buy_res = json.dumps(response.text)
-                        print(buy_res)
+                        buy_res = json.loads(response.text)
                         buy_id = int(buy_res['data']['orderId'])
                         if int(buy_id)  > 10:
                             logo_s = 1
@@ -768,8 +767,7 @@ while True:
                             sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                             header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                             response = requests.post(url, data=body, headers=header)
-                            buy_res = json.dumps(response.text)
-                            print(buy_res)
+                            buy_res = json.loads(response.text)
                             buy_id = int(buy_res['data']['orderId'])
                             if int(buy_id)  > 10:
                                 logo_s = 1
@@ -832,8 +830,7 @@ while True:
                                 sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                                 header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                                 response = requests.post(url, data=body, headers=header)
-                                buy_res = json.dumps(response.text)
-                                print(buy_res)
+                                buy_res = json.loads(response.text)
                                 buy_id = int(buy_res['data']['orderId'])
                                 if int(buy_id)  > 10:
                                     logo_s = 1
@@ -892,8 +889,7 @@ while True:
                                         sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                                         header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                                         response = requests.post(url, data=body, headers=header)
-                                        buy_res = json.dumps(response.text)
-                                        print(buy_res)
+                                        buy_res = json.loads(response.text)
                                         buy_id = int(buy_res['data']['orderId'])
                                         if int(buy_id)  > 10:
                                             logo_s = 1
@@ -920,8 +916,7 @@ while True:
                                         sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                                         header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                                         response = requests.post(url, data=body, headers=header)
-                                        buy_res = json.dumps(response.text)
-                                        print(buy_res)
+                                        buy_res = json.loads(response.text)
                                         buy_id = int(buy_res['data']['orderId'])
                                         if int(buy_id)  > 10:
                                             logo_s = 1
@@ -987,7 +982,7 @@ while True:
                         sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                         header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                         response = requests.post(url, data=body, headers=header)
-                        buy_res = json.dumps(response.text)
+                        buy_res = json.loads(response.text)
                         buy_id = int(buy_res['data']['orderId'])
                         if int(buy_id)  > 10:
                             logo_s = 1
@@ -1037,7 +1032,7 @@ while True:
                             sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                             header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                             response = requests.post(url, data=body, headers=header)
-                            buy_res = json.dumps(response.text)
+                            buy_res = json.loads(response.text)
                             buy_id = int(buy_res['data']['orderId'])
                             if int(buy_id)  > 10:
                                 logo_s = 1
@@ -1100,7 +1095,7 @@ while True:
                                 sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                                 header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                                 response = requests.post(url, data=body, headers=header)
-                                buy_res = json.dumps(response.text)
+                                buy_res = json.loads(response.text)
                                 buy_id = int(buy_res['data']['orderId'])
                                 if int(buy_id)  > 10:
                                     logo_s = 1
@@ -1159,7 +1154,7 @@ while True:
                                         sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                                         header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                                         response = requests.post(url, data=body, headers=header)
-                                        buy_res = json.dumps(response.text)
+                                        buy_res = json.loads(response.text)
                                         buy_id = int(buy_res['data']['orderId'])
                                         if int(buy_id)  > 10:
                                             logo_s = 1
@@ -1186,7 +1181,7 @@ while True:
                                         sign_tranfer = sign(pre_hash(timestamp, "POST", request_path, str(body)), API_SECRET_KEY)
                                         header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                                         response = requests.post(url, data=body, headers=header)
-                                        buy_res = json.dumps(response.text)
+                                        buy_res = json.loads(response.text)
                                         buy_id = int(buy_res['data']['orderId'])
                                         if int(buy_id)  > 10:
                                             logo_s = 1
