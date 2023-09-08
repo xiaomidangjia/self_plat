@@ -718,6 +718,7 @@ while True:
                         header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                         response = requests.post(url, data=body, headers=header)
                         buy_res = json.dumps(response.text)
+                        print(buy_res)
                         buy_id = int(buy_res['data']['orderId'])
                         if int(buy_id)  > 10:
                             logo_s = 1
@@ -768,6 +769,7 @@ while True:
                             header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                             response = requests.post(url, data=body, headers=header)
                             buy_res = json.dumps(response.text)
+                            print(buy_res)
                             buy_id = int(buy_res['data']['orderId'])
                             if int(buy_id)  > 10:
                                 logo_s = 1
@@ -831,6 +833,7 @@ while True:
                                 header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                                 response = requests.post(url, data=body, headers=header)
                                 buy_res = json.dumps(response.text)
+                                print(buy_res)
                                 buy_id = int(buy_res['data']['orderId'])
                                 if int(buy_id)  > 10:
                                     logo_s = 1
@@ -890,6 +893,7 @@ while True:
                                         header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                                         response = requests.post(url, data=body, headers=header)
                                         buy_res = json.dumps(response.text)
+                                        print(buy_res)
                                         buy_id = int(buy_res['data']['orderId'])
                                         if int(buy_id)  > 10:
                                             logo_s = 1
@@ -917,6 +921,7 @@ while True:
                                         header = get_header(API_KEY, sign_tranfer, timestamp, PASSPHRASE)
                                         response = requests.post(url, data=body, headers=header)
                                         buy_res = json.dumps(response.text)
+                                        print(buy_res)
                                         buy_id = int(buy_res['data']['orderId'])
                                         if int(buy_id)  > 10:
                                             logo_s = 1
